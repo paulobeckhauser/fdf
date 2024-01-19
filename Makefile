@@ -8,39 +8,54 @@
 # $^: Automatic variable representing all the prerequisites(the object files)
 
 # Standard
-NAME :=	fdf
+NAME 				= fdf
 
 # Directories
-LIBFT	:=	./libft/libft.a
+LIBFT				= ./libs/libft/libft.a
+INC					= inc/
+SRC_DIR				= src/
+OBJ_DIR				= obj/
 
+# Compiler and CFLAGS
+CC					= cc
+CFLAGS				= -Wall -Wextra -Werror -I
+RM 					= rm -f
 
-# Compiler and Flags
-CC	:= cc
-CFLAGS	:= -Wall -Wextra -Werror
-RM := /bin/rm -f
-AR	:= ar rcs
+# Source Files
+OPERATIONS_DIR		= 	$(SRC_DIR)main.c
+
+# Concatenate all source files
+SRCS				= $(OPERATIONS_DIR)
+
+# Creation of object files for each source file
+OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 # Rules
+start:
+					@make all
 
 $(LIBFT):
-			@make -C ./libft
+					@make -C ./libs/libft
 
-all	: 		$(NAME)
+all:				$(NAME)
 
-$(NAME) :	$(OBJ) $(LIBFT)
+$(NAME): 			$(OBJ) $(LIBFT)
+					@$(CC) $(CFLAGS) $(INC) $(OBJ) $(LIBFT) -o $(NAME)
+
+# Compile object files from source files
+$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
+					@mkdir -p $(@D)
+					@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
-			$(RM) -r $(OBJ_DIR)
-			make clean -C ./libft
+					$(RM) -r $(OBJ_DIR)
+					make clean -C ./libs/libft
 
-fclean :		clean
-				$(RM) $(NAME)
-				$(RM) $(LIBFT)
+fclean : 			clean
+					$(RM) $(NAME)
+					$(RM) $(LIBFT)
 
-re:				fclean all
-
+re: 				fclean all
 
 # Phony targets represent non-file targets
-.Phony				all clean fclean re
-
-
+.PHONY: 			start all clean fclean re
