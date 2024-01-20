@@ -10,52 +10,67 @@
 # Standard
 NAME 				= fdf
 
-# Directories
-LIBFT				= ./libs/libft/libft.a
-INC					= inc/
-SRC_DIR				= src/
-OBJ_DIR				= obj/
+#Directories
+SRC_DIR			= src/
+OBJ_DIR			= obj/
 
-# Compiler and CFLAGS
-CC					= cc
-CFLAGS				= -Wall -Wextra -Werror -I
-RM 					= rm -f
+#Compiler and Flags
+CC = cc
+RM = rm -f
+CFLAGS = -Wall -Wextra -Werror
 
-# Source Files
-OPERATIONS_DIR		= 	$(SRC_DIR)main.c
+# Libraries
+LIBFT = ./libs/libft/libft.a
+MINILIBX = ./libs/mlx_linux/libmlx.a
 
-# Concatenate all source files
-SRCS				= $(OPERATIONS_DIR)
+#Source Files
+SRCS				= 	$(SRC_DIR)main.c \
+						$(SRC_DIR)print_error.c \
+						$(SRC_DIR)check_map_format.c \
+						$(SRC_DIR)insert_node.c \
+						$(SRC_DIR)map_read.c \
+						$(SRC_DIR)new_node.c \
+						$(SRC_DIR)new_list.c \
+						$(SRC_DIR)clean_content.c \
 
-# Creation of object files for each source file
-OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
-# Rules
-start:
-					@make all
+# Creation of Object files for each source file
+# OBJ := $(SRCS:%.c=%.o)
+OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
-$(LIBFT):
-					@make -C ./libs/libft
 
-all:				$(NAME)
+#Rules
+all: ${NAME}
 
-$(NAME): 			$(OBJ) $(LIBFT)
-					@$(CC) $(CFLAGS) $(INC) $(OBJ) $(LIBFT) -o $(NAME)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+		@mkdir -p $(@D)
+		${CC} ${CFLAGS} -I./libs/libft -I./libs/mlx_linux -c $? -o $@
 
-# Compile object files from source files
-$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
-					@mkdir -p $(@D)
-					@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+# %.o: %.c
+# 			@mkdir -p $(@D)
+# 			${CC} ${CFLAGS} -I./libs/libft -I./libs/mlx_linux -c $? -o $@
+
+${NAME}: ${OBJ}
+		@make -C ./libs/libft
+		@make -C ./libs/mlx_linux
+		@${CC} ${CFLAGS} $^ -L./libs/libft -lft -L./libs/mlx_linux -lmlx -lXext -lX11 -lm -lz -o ${NAME}
+
+libft:
+		@make -C libs/libft
+
+mlx_linux:
+		@make -C libs/mlx_linux
 
 clean:
-					$(RM) -r $(OBJ_DIR)
-					make clean -C ./libs/libft
+		@make clean -C ./libs/libft
+		@make clean -C ./libs/mlx_linux
+		@${RM} ${OBJ}
 
-fclean : 			clean
-					$(RM) $(NAME)
-					$(RM) $(LIBFT)
+fclean: clean
+		@${RM} ${NAME}
+		@${RM} ./libs/libft/libft.a
+		@rm -rf ${OBJ_DIR} 
 
-re: 				fclean all
+re: fclean all
 
-# Phony targets represent non-file targets
-.PHONY: 			start all clean fclean re
+.PHONY: all clean fclean re libft mlx_linux

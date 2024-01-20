@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:00:01 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/08 17:29:18 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:23:52 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,27 +67,26 @@ char	*update_stash(char *line)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash[MAX_FD];
+	static char	*stash;
 	char		*line;
 	char		*buffer;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0 || fd > MAX_FD
-		|| open("files/empty", O_RDONLY) == -1)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		free(buffer);
-		free(stash[fd]);
+		free(stash);
 		buffer = NULL;
-		stash[fd] = NULL;
+		stash = NULL;
 		return (NULL);
 	}
 	if (!buffer)
 		return (NULL);
-	line = filling_line(fd, stash[fd], buffer);
+	line = filling_line(fd, stash, buffer);
 	free(buffer);
 	buffer = NULL;
 	if (!line)
 		return (NULL);
-	stash[fd] = update_stash(line);
+	stash = update_stash(line);
 	return (line);
 }
