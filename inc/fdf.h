@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/20 23:27:11 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:40:14 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define SCREEN_WIDTH 1300
 # define SCREEN_HEIGHT 900
+# define COS_30 0.86602540378
+# define SIN_30 0.5
 
 
 typedef struct s_coordinate

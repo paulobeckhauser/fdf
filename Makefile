@@ -24,14 +24,7 @@ LIBFT = ./libs/libft/libft.a
 MINILIBX = ./libs/mlx_linux/libmlx.a
 
 #Source Files
-SRCS				= 	$(SRC_DIR)main.c \
-						$(SRC_DIR)print_error.c \
-						$(SRC_DIR)check_map_format.c \
-						$(SRC_DIR)insert_node.c \
-						$(SRC_DIR)map_read.c \
-						$(SRC_DIR)new_node.c \
-						$(SRC_DIR)new_list.c \
-						$(SRC_DIR)clean_content.c \
+SRCS				= 	$(SRC_DIR)main.c
 
 
 # Creation of Object files for each source file
