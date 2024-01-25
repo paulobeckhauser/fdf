@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/21 15:40:14 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/25 20:25:59 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,50 @@
 #include <fcntl.h> // open
 #include <stdbool.h> // bool
 
-# define SCREEN_WIDTH 1300
-# define SCREEN_HEIGHT 900
-# define COS_30 0.86602540378
-# define SIN_30 0.5
+// Math libraries
+# include <math.h>
 
+# define COS_45 0.70710678118
+# define SIN_45 sin(45)
 
-typedef struct s_coordinate
+# define COS_ARCTAN_ROOT2 0.5774
+# define SIN_ARCTAN_ROOT2 0.8165
+
+typedef struct s_coordinates{
+   float x;
+   float y;
+   float z;
+} t_coordinates;
+
+typedef struct
 {
-    float x;
-    float y;
-    float z;
-}   t_coordinates;
+    float x_iso;
+    float y_iso;
+} t_iso_coordinates;
 
-typedef struct s_map
-{
-    t_coordinates *s_coordinate;
-    struct s_map *next;
-    int width;
-    int height;
-    float scale;
+
+
+typedef struct Node{
     
+    t_coordinates coord;
+    struct Node *next;
+    t_iso_coordinates iso_coord;
+} Node;
+
+
+typedef struct bresenham_data{
     
+    t_coordinates values;
+    struct bresenham_data *next;
+    int p_value;
+    int dx;
+    int dy;
     
-}   t_map;
+} bresenham_data;
 
-int print_return(char *str, int ret);
-int check_map_format(const char *argv);
-t_map *insert_node(t_map *head, t_map *s_list);
-t_map *new_node(int x, int y, int z);
 
-//cleaning
-void clean_structure(t_map *s_map);
-void clean_split(char **split_result);
-void clean_matrix(float **map_matrix);
 
+
+void	iso_coordinates(Node *head);
 
 # endif

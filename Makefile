@@ -24,7 +24,8 @@ LIBFT = ./libs/libft/libft.a
 MINILIBX = ./libs/mlx_linux/libmlx.a
 
 #Source Files
-SRCS				= 	$(SRC_DIR)main.c
+SRCS				= 	$(SRC_DIR)main.c \
+						$(SRC_DIR)iso_coordinates.c
 
 
 # Creation of Object files for each source file
@@ -46,6 +47,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 ${NAME}: ${OBJ}
 		@make -C ./libs/libft
 		@make -C ./libs/mlx_linux
+#linux
 		@${CC} ${CFLAGS} $^ -L./libs/libft -lft -L./libs/mlx_linux -lmlx -lXext -lX11 -lm -lz -o ${NAME}
 
 libft:
