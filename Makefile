@@ -25,7 +25,9 @@ MINILIBX = ./libs/mlx_linux/libmlx.a
 
 #Source Files
 SRCS				= 	$(SRC_DIR)main.c \
-						$(SRC_DIR)iso_coordinates.c
+						$(SRC_DIR)iso_coordinates.c \
+						$(SRC_DIR)bresenham_algorithm.c \
+						$(SRC_DIR)max_min.c
 
 
 # Creation of Object files for each source file

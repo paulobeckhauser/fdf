@@ -6,147 +6,79 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:03:56 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/25 20:25:20 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:28:26 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+# include "../inc/fdf.h"
+# include <stdio.h>
 
-typedef struct s_coordinates
+static void	swap_int(int *a, int *b)
 {
-    int x;
-    int y;
-} t_coordinates;
+	int	temp;
 
-
-typedef struct Node{
-    t_coordinates coord;
-    struct Node *next;
-    
-} Node;
-
-
-typedef struct algo_data{
-    
-    t_coordinates values;
-    struct algo_data *next;
-    int p_value;
-    int dx;
-    int dy;
-    
-} algo_data;
-
-
-void bresenham_algorithm(int x1, int y1, int x2, int y2)
-{
-    algo_data *data;
-
-    data = (algo_data*)malloc(sizeof(algo_data));
-
-    data->values.x = x1;
-    data->values.y = y1;
-
-    data->dx = x2 - x1;
-    data->dy = y2 - y1;
-    data->p_value = (2 * data->dy) - data->dx;
-
-    while (data->values.x <= x2)
-    {
-        printf("x: %d, y: %d, P: %d\n", data->values.x, data->values.y, data->p_value);
-        printf("put_pixel(%d, %d)\n\n", data->values.x, data->values.y);
-        data->values.x++;
-        if (data->p_value < 0)
-            data->p_value = data->p_value + (2 * data->dy);
-        else
-        {
-            data->p_value = data->p_value + (2 * data->dy) - (2 * data->dx);
-            data->values.y++;
-        }
-    }
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
-
-
-int main(void)
+static void	apply_algo(int x1, int y1, int x2, int y2, void *mlx_connection, void *mlx_window)
 {
-    Node *head = NULL;
-    Node *prev = NULL;
-    Node* newNode;
+	int	x;
+	int	y;
+	int	dx;
+	int	dy;
+	int	p;
 
-
-    newNode = (Node*)malloc(sizeof(Node));
-    
-    newNode->coord.x = 1;
-    newNode->coord.y = 1;
-    newNode->next = NULL;
-
-    if (prev == NULL)
-        head = newNode;
-    else
-        prev->next = newNode;
-    prev = newNode;
-
-    newNode = (Node*)malloc(sizeof(Node));
-    
-    newNode->coord.x = 8;
-    newNode->coord.y = 5;
-    newNode->next = NULL;
-
-    if (prev == NULL)
-        head = newNode;
-    else
-        prev->next = newNode;
-    prev = newNode;
-
-
-    bresenham_algorithm(1, 1, 8, 5);
-
-
-
-
-
-    // // Bresenham's Algorithm
-
-    // algo_data *data;
-
-    // data = (algo_data*)malloc(sizeof(algo_data));
-
-
-    // Node *current;
-    // current = head;
-    
-    // data->values.x = current->coord.x;
-    // data->values.y = current->coord.y;
-    // // printf("x: %d , %d\n", data->values.x, data->values.y);
-
-    // data->dx = current->next->coord.x - current->coord.x;
-    // data->dy = current->next->coord.y - current->coord.y;
-    // printf("x: %d\n", data->values.x);
-    // printf("y: %d\n", data->values.y);
-
-    // data->p_value = (2 * data->dy) - data->dx;
-    // printf("P: %d\n", data->p_value);
-    // printf("\n\n");
-
-    // while (current->coord.x <= current->next->coord.x)
-    // {
-    //     printf("x: %d, y: %d, P: %d\n", current->coord.x, current->coord.y, data->p_value);
-    //     printf("put_pixel(%d, %d)\n\n", current->coord.x, current->coord.y);
-    //     current->coord.x++;
-    //     if (data->p_value < 0)
-    //         data->p_value = data->p_value + (2 * data->dy);
-    //     else
-    //     {
-    //         data->p_value = data->p_value + (2 * data->dy) - (2 * data->dx);
-    //         current->coord.y++;
-    //     }
-    // }
-    
-    
-
-    
+	x = x1;
+	y = y1;
+	dx = x2 - x1;
+	dy = y2 - y1;
+	p = 2 * dy - dx;
+	while (x <= x2)
+	{
+		// printf("(%d, %d)\n", x, y);
+        mlx_pixel_put(mlx_connection, mlx_window, x, y, 0xff0000);
+		x++;
+		if (p < 0)
+		{
+			p = p + 2 * dy;
+		}
+		else
+		{
+			p = p + 2 * dy - 2 * dx;
+			y++;
+		}
+	}
 }
-    
-    
-    
+
+void	bresenham_algorithm(int x1, int y1, int x2, int y2, void *mlx_connection, void *mlx_window)
+{
+	if (x1 > x2)
+	{
+		swap_int(&x1, &x2);
+		swap_int(&y1, &y2);
+	}
+	if (x1 == x2)
+	{
+		if (y1 > y2)
+			swap_int(&y1, &y2);
+		while (y1 <= y2)
+		{
+			// printf("(%d, %d)\n", x1, y1);
+            mlx_pixel_put(mlx_connection, mlx_window, x1, y1, 0xff0000);
+			y1++;
+		}
+	}
+	else if (y1 == y2)
+	{
+		while (x1 <= x2)
+		{
+			// printf("(%d, %d)\n", x1, y1);
+            mlx_pixel_put(mlx_connection, mlx_window, x1, y1, 0xff0000);
+			x1++;
+		}
+	}
+	else
+		apply_algo(x1, y1, x2, y2, mlx_connection, mlx_window);
+}
