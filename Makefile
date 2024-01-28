@@ -21,13 +21,14 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Libraries
 LIBFT = ./libs/libft/libft.a
-MINILIBX = ./libs/mlx_linux/libmlx.a
+MINILIBX = ./libs/mlx_macos/libmlx.a
+# MINILIBX = ./libs/mlx_linux/libmlx.a
 
 #Source Files
 SRCS				= 	$(SRC_DIR)main.c \
-						$(SRC_DIR)bresenham_algorithm.c \
 						$(SRC_DIR)max_min.c \
-						$(SRC_DIR)get_connections.c
+						$(SRC_DIR)get_connections.c \
+						$(SRC_DIR)bresenham_algorithm.c \
 #						$(SRC_DIR)iso_coordinates.c
 
 
@@ -41,28 +42,34 @@ all: ${NAME}
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 		@mkdir -p $(@D)
-		${CC} ${CFLAGS} -I./libs/libft -I./libs/mlx_linux -c $? -o $@
+		${CC} ${CFLAGS} -I./libs/libft -I./libs/mlx_macos -c $? -o $@
+#		${CC} ${CFLAGS} -I./libs/libft -I./libs/mlx_linux -c $? -o $@
 
 # %.o: %.c
 # 			@mkdir -p $(@D)
 # 			${CC} ${CFLAGS} -I./libs/libft -I./libs/mlx_linux -c $? -o $@
 
 ${NAME}: ${OBJ}
-		@make -C ./libs/libft
-		@make -C ./libs/mlx_linux
+		@${CC} ${CFLAGS} $^ -L./libs/libft -lft -L./libs/mlx_macos -lmlx -framework OpenGL -framework AppKit -o ${NAME}
+		# @make -C ./libs/libft
+		@make -C ./libs/mlx_macos
+#		@make -C ./libs/mlx_linux
 #linux
-		@${CC} ${CFLAGS} $^ -L./libs/libft -lft -L./libs/mlx_linux -lmlx -lXext -lX11 -lm -lz -o ${NAME}
+#		@${CC} ${CFLAGS} $^ -L./libs/libft -lft -L./libs/mlx_linux -lmlx -lXext -lX11 -lm -lz -o ${NAME}
 
 libft:
 		@make -C libs/libft
 
-mlx_linux:
-		@make -C libs/mlx_linux
+mlx_macos:
+		@make -C libs/mlx_macos
+# mlx_linux:
+# 		@make -C libs/mlx_linux
 
 clean:
 		@make clean -C ./libs/libft
-		@make clean -C ./libs/mlx_linux
+		@make clean -C ./libs/mlx_macos
 		@${RM} ${OBJ}
+#		@make clean -C ./libs/mlx_linux
 
 fclean: clean
 		@${RM} ${NAME}
@@ -71,4 +78,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libft mlx_linux
+.PHONY: all clean fclean re libft mlx_macos #mlx_linux

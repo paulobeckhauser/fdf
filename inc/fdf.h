@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/28 13:23:57 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/28 18:13:01 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // Math libraries
 # include <math.h>
 
-# define M_PI 3.14159265358979323846
+// # define M_PI 3.14159265358979323846
 
 # define COS_45 cos(45 * (M_PI / 180.0))
 # define SIN_45 sin(45 * (M_PI / 180.0))
@@ -35,8 +35,8 @@
 
 
 
-# define COS_ARCTAN_ROOT2 cos(atan(sqrt(2)))
-# define SIN_ARCTAN_ROOT2 sin(atan(sqrt(2)))
+// # define COS_ARCTAN_ROOT2 cos(atan(sqrt(2)))
+// # define SIN_ARCTAN_ROOT2 sin(atan(sqrt(2)))
 
 typedef struct s_coordinates{
    float x;
@@ -73,6 +73,14 @@ typedef struct Node{
 } Node;
 
 
+// typedef struct s_node {
+//     int z;
+//     unsigned int color;
+// }   t_node;
+
+// t_node **fdf;
+
+
 typedef struct bresenham_data{
     
     t_coordinates values;
@@ -89,7 +97,7 @@ typedef struct bresenham_data{
 void	iso_coordinates(Node *head);
 
 //Algorithm
-void	bresenham_algorithm(int x1, int y1, int x2, int y2, void *mlx_connection, void *mlx_window);
+void bresenham_algorithm(int x1, int y1, int x2, int y2, void *mlx_connection, void *mlx_window, unsigned int c);
 
 //Max min
 // int max_node_x(Node *head);

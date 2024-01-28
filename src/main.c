@@ -6,15 +6,13 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:14:39 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/28 14:13:56 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/28 18:05:57 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/fdf.h"
 
 #include <stdio.h>
-
-
 
 int main(void)
 {
@@ -98,7 +96,7 @@ int main(void)
 
 
     
-    // Node *current;
+    // // Node *current;
 
 	float	min_x;
 	float	min_y;
@@ -114,22 +112,22 @@ int main(void)
 
 
 
-    double oldX, oldY;
-    current = head;
-	while (current != NULL)
-	{
+    // double oldX, oldY;
+    // current = head;
+	// while (current != NULL)
+	// {
 		
-        oldX = current->iso_coord.x;
-        oldY = current->iso_coord.y;
+    //     oldX = current->iso_coord.x;
+    //     oldY = current->iso_coord.y;
         
-        current->iso_coord.x = (COS_45 * oldX) - (SIN_45 * oldY);
-        current->iso_coord.y = (SIN_45 * oldX) + (COS_45 * oldY);
+    //     current->iso_coord.x = (COS_45 * oldX) - (SIN_45 * oldY);
+    //     current->iso_coord.y = (SIN_45 * oldX) + (COS_45 * oldY);
 
         
-        current = current->next;
-	}
+    //     current = current->next;
+	// }
 
-        current = head;
+    // current = head;
 
 
     // printf("%f\n", COS_45);
@@ -191,23 +189,23 @@ int main(void)
     // current = head;
     // while(current != NULL)
     // {
-    //     printf("\nDOT: (%f, %f, %f)\n\n", current->coord.x, current->coord.y, current->coord.z);
-    //     printf("\nISO_DOT: (%f, %f, %f)\n\n", current->iso_coord.x, current->iso_coord.y, current->iso_coord.z);
-    //     if (!isnan(current->left.x))
-    //         printf("Left: (%f, %f, %f)\n", current->left.x, current->left.y, current->left.z);
-    //     if (!isnan(current->right.x))
-    //         printf("Right: (%f, %f, %f)\n", current->right.x, current->right.y, current->right.z);
-    //     if (!isnan(current->up.x))
-    //         printf("Up: (%f, %f, %f)\n", current->up.x, current->up.y, current->up.z);
-    //     if (!isnan(current->down.x))
-    //         printf("Down: (%f, %f, %f)\n", current->down.x, current->down.y, current->down.z);
-    //     printf("\n\n");
+    //     printf("\nDOT: (%f, %f, %f)\n", current->coord.x, current->coord.y, current->coord.z);
+    //     printf("ISO_DOT: (%f, %f, %f)\n\n", current->iso_coord.x, current->iso_coord.y, current->iso_coord.z);
+    //     // if (!isnan(current->left.x))
+    //     //     printf("Left: (%f, %f, %f)\n", current->left.x, current->left.y, current->left.z);
+    //     // if (!isnan(current->right.x))
+    //     //     printf("Right: (%f, %f, %f)\n", current->right.x, current->right.y, current->right.z);
+    //     // if (!isnan(current->up.x))
+    //     //     printf("Up: (%f, %f, %f)\n", current->up.x, current->up.y, current->up.z);
+    //     // if (!isnan(current->down.x))
+    //     //     printf("Down: (%f, %f, %f)\n", current->down.x, current->down.y, current->down.z);
+    //     // printf("\n\n");
     //     current = current->next;
     // }
     // print_coords(head);
 
 
-    float factor_mult = 250.0;
+    float factor_mult = 100.0;
     float factor_sum = 500.0;
 
     
@@ -222,20 +220,45 @@ int main(void)
 
     current = head;
 
+    int i = 0;
+    
     while(current != NULL)
     {
+        printf("----------------\n");
+        printf("Dot number: %d\n", i);
+        printf("\n\nDOT: (%f, %f, %f)\n", current->coord.x, current->coord.y, current->coord.z);
+        printf("ISO_DOT: (%f, %f, %f)\n\n", current->iso_coord.x, current->iso_coord.y, current->iso_coord.z);  
         // if (!isnan(current->left.x))
+        // {
         //     bresenham_algorithm((int)(current->iso_coord.x * factor_mult + factor_sum), (int)(current->iso_coord.y * factor_mult + factor_sum), (int)(current->left.x * factor_mult + factor_sum), (int)(current->left.y * factor_mult + factor_sum),
         //     mlx_connection, mlx_window);
+        //     printf("Left: (%f, %f, %f)\n", current->left.x, current->left.y, current->left.z);
+        // }
         if (!isnan(current->right.x))
-            bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), (current->iso_coord.y * factor_mult + factor_sum), (current->right.x * factor_mult + factor_sum), (current->right.y * factor_mult + factor_sum),
-            mlx_connection, mlx_window);
+        {
+            bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), (current->iso_coord.y * factor_mult + factor_sum), 
+                (current->right.x * factor_mult + factor_sum), (current->right.y * factor_mult + factor_sum),
+                mlx_connection, mlx_window, 0x00000f << (i * 4));
+            printf("%X\n", 0x00000f << (i * 4));
+            printf("Right: (%f, %f, %f)\n", current->right.x, current->right.y, current->right.z);
+            printf("The current point is: %f, %f\n", (current->coord.x ), (current->coord.y));
+        }
         // if (!isnan(current->up.x))
+        // {
         //     bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), (current->iso_coord.y * factor_mult + factor_sum), (current->up.x * factor_mult + factor_sum), (current->up.y * factor_mult + factor_sum),
         //     mlx_connection, mlx_window);
+        //     printf("Up: (%f, %f, %f)\n", current->up.x, current->up.y, current->up.z);
+        // }
         if (!isnan(current->down.x))
-            bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), (current->iso_coord.y * factor_mult + factor_sum), (current->down.x * factor_mult + factor_sum), (current->down.y * factor_mult + factor_sum),
-            mlx_connection, mlx_window);
+        {
+            bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), (current->iso_coord.y * factor_mult + factor_sum), (current->down.x * factor_mult + factor_sum), 
+                    (current->down.y * factor_mult + factor_sum),
+            mlx_connection, mlx_window,  0x00000f << (i * 4));
+            printf("%X\n", 0x00000f << (i * 4));
+            printf("Down: (%f, %f, %f)\n", current->down.x, current->down.y, current->down.z);
+            printf("The current point is: %f, %f\n", (current->coord.x ), (current->coord.y));
+        }
+        i++;
         current = current->next;
     }
 
@@ -244,7 +267,6 @@ int main(void)
 
     // printf("%f\n", COS_45);
     // printf("%f\n", SIN_45);
-
 
     return (0);
 }

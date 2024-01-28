@@ -6,11 +6,12 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:11:02 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/25 19:36:43 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/28 15:30:26 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../libs/mlx_linux/mlx.h"
+// # include "../libs/mlx_linux/mlx.h"
+# include "../libs/mlx_macos/mlx.h"
 
 int main(void)
 {
@@ -23,7 +24,7 @@ int main(void)
     
     for (int i = 1; i < 100; ++i)
     {
-        mlx_pixel_put(mlx_connection, mlx_window, -50 + i, 250, 0xff0000);
+        mlx_pixel_put(mlx_connection, mlx_window, 100 + i, 100, 0xff0000);
         
     }
 
