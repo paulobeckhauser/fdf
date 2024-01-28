@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/27 12:20:26 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:35:10 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,12 @@ typedef struct Node{
     
     t_coordinates coord;
     struct Node *next;
+    struct Node *prev;
     t_iso_coordinates iso_coord;
+    t_coordinates up;
+    t_coordinates down;
+    t_coordinates left;
+    t_coordinates right;
 } Node;
 
 
@@ -82,6 +87,9 @@ float extract_y(t_coordinates coord);
 float max_node_coordinate(Node* head, CoordinateExtractor extractor);
 float min_node_coordinate(Node* head, CoordinateExtractor extractor);
 
+//connections
+void set_coordinates_to_nan(t_coordinates *coord);
+void	get_connections(Node *head, float max_x, float max_y);
 
 
 
