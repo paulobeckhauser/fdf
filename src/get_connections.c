@@ -6,17 +6,17 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 14:54:20 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/27 17:12:30 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:31:13 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	set_coordinates_to_nan(t_coordinates *coord)
+void	set_coordinates_to_nan(t_coordinates *iso_coord)
 {
-	coord->x = NAN;
-	coord->y = NAN;
-	coord->z = NAN;
+	iso_coord->x = NAN;
+	iso_coord->y = NAN;
+	iso_coord->z = NAN;
 }
 
 void	get_connections(Node *head, float max_x, float max_y)
@@ -29,11 +29,11 @@ void	get_connections(Node *head, float max_x, float max_y)
 	while (current != NULL)
 	{
 		if (current->coord.x != 0)
-			current->left = current->prev->coord;
+			current->left = current->prev->iso_coord;
 		else
 			set_coordinates_to_nan(&current->left);
 		if (current->coord.x != max_x)
-			current->right = current->next->coord;
+			current->right = current->next->iso_coord;
 		else
 			set_coordinates_to_nan(&current->right);
 		if (current->coord.y != 0)
@@ -44,7 +44,7 @@ void	get_connections(Node *head, float max_x, float max_y)
 				if (up_node->coord.x == current->coord.x
 					&& up_node->coord.y == current->coord.y - 1)
 				{
-					current->up = up_node->coord;
+					current->up = up_node->iso_coord;
 					break ;
 				}
 				up_node = up_node->prev;
@@ -60,7 +60,7 @@ void	get_connections(Node *head, float max_x, float max_y)
 				if (down_node->coord.x == current->coord.x
 					&& down_node->coord.y == current->coord.y + 1)
 				{
-					current->down = down_node->coord;
+					current->down = down_node->iso_coord;
 					break ;
 				}
 				down_node = down_node->next;

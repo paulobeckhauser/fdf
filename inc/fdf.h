@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/27 17:35:10 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/28 13:23:57 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,17 @@
 // Math libraries
 # include <math.h>
 
-# define COS_45 0.70710678118
-# define SIN_45 sin(45)
+# define M_PI 3.14159265358979323846
 
-# define COS_ARCTAN_ROOT2 0.5774
-# define SIN_ARCTAN_ROOT2 0.8165
+# define COS_45 cos(45 * (M_PI / 180.0))
+# define SIN_45 sin(45 * (M_PI / 180.0))
+
+
+
+
+
+# define COS_ARCTAN_ROOT2 cos(atan(sqrt(2)))
+# define SIN_ARCTAN_ROOT2 sin(atan(sqrt(2)))
 
 typedef struct s_coordinates{
    float x;
@@ -38,11 +44,12 @@ typedef struct s_coordinates{
    float z;
 } t_coordinates;
 
-typedef struct
-{
-    float x_iso;
-    float y_iso;
-} t_iso_coordinates;
+// typedef struct
+// {
+//     float x_iso;
+//     float y_iso;
+//     float z_iso;
+// } t_iso_coordinates;
 
 
 
@@ -51,11 +58,18 @@ typedef struct Node{
     t_coordinates coord;
     struct Node *next;
     struct Node *prev;
-    t_iso_coordinates iso_coord;
+    
+    t_coordinates iso_coord;
+    
     t_coordinates up;
     t_coordinates down;
     t_coordinates left;
     t_coordinates right;
+    
+    // t_iso_coordinates up;
+    // t_iso_coordinates down;
+    // t_iso_coordinates left;
+    // t_iso_coordinates right;
 } Node;
 
 

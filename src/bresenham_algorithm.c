@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:03:56 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/27 17:10:19 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/28 14:26:04 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,30 @@ void	bresenham_algorithm(int x1, int y1, int x2, int y2, void *mlx_connection, v
 	}
 	else
 		apply_algo(x1, y1, x2, y2, mlx_connection, mlx_window);
+}
+
+// The use of the images of the MiniLibX is mandatory.
+
+int main(void)
+{
+	void *mlx_connection;
+    void *mlx_window;
+
+    mlx_connection = mlx_init();
+
+    mlx_window = mlx_new_window(mlx_connection, 1200, 1200, "fdf");
+
+
+	// bresenham_algorithm(100, 100, 800, 500, mlx_connection, mlx_window);
+	// // bresenham_algorithm(800, 500, 100, 100, mlx_connection, mlx_window);
+	// bresenham_algorithm(500, 500, 0, 0, mlx_connection, mlx_window);
+	// bresenham_algorithm(500, 500, 1000, 0, mlx_connection, mlx_window);
+
+	// bresenham_algorithm(500, 500, 0, 0, mlx_connection, mlx_window);
+	// bresenham_algorithm(500, 500, 500, 0, mlx_connection, mlx_window);
+	bresenham_algorithm(500, 500, 1000, 0, mlx_connection, mlx_window);
+	// bresenham_algorithm(500, 500, 1000, 500, mlx_connection, mlx_window);
+	// bresenham_algorithm(500, 500, 1000, 1000, mlx_connection, mlx_window);
+
+	mlx_loop(mlx_connection);
 }
