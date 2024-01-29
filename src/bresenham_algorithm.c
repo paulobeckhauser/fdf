@@ -6,157 +6,141 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:03:56 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/28 17:57:49 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:20:06 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/fdf.h"
 # include <stdio.h>
 
-// static void	swap_int(int *a, int *b)
+// typedef struct s_data
 // {
-// 	int	temp;
+//     void *img;
+//     char *addr;
+//     int bits_per_pixel;
+//     int line_length;
+//     int endian;
+// }   t_data;
 
-// 	temp = *a;
-// 	*a = *b;
-// 	*b = temp;
-// }
-
-// static void	apply_algo(int x1, int y1, int x2, int y2, void *mlx_connection, void *mlx_window)
-// {
-// 	int	x;
-// 	int	y;
-// 	int	dx;
-// 	int	dy;
-// 	int	p;
-
-// 	x = x1;
-// 	y = y1;
-// 	dx = x2 - x1;
-// 	dy = y2 - y1;
-// 	p = 2 * dy - dx;
-// 	while (x <= x2)
-// 	{
-// 		// printf("(%d, %d)\n", x, y);
-//         mlx_pixel_put(mlx_connection, mlx_window, x, y, 0xff0000);
-// 		x++;
-// 		if (p < 0)
-// 		{
-// 			p = p + 2 * dy;
-// 		}
-// 		else
-// 		{
-// 			p = p + 2 * dy - 2 * dx;
-// 			y++;
-// 		}
-// 	}
-// }
-
-// void	bresenham_algorithm(int x1, int y1, int x2, int y2, void *mlx_connection, void *mlx_window)
-// {
-// 	if (x1 > x2)
-// 	{
-// 		swap_int(&x1, &x2);
-// 		swap_int(&y1, &y2);
-// 	}
-// 	if (x1 == x2)
-// 	{
-// 		if (y1 > y2)
-// 			swap_int(&y1, &y2);
-// 		while (y1 <= y2)
-// 		{
-// 			// printf("(%d, %d)\n", x1, y1);
-//             mlx_pixel_put(mlx_connection, mlx_window, x1, y1, 0xff0000);
-// 			y1++;
-// 		}
-// 	}
-// 	else if (y1 == y2)
-// 	{
-// 		while (x1 <= x2)
-// 		{
-// 			// printf("(%d, %d)\n", x1, y1);
-//             mlx_pixel_put(mlx_connection, mlx_window, x1, y1, 0xff0000);
-// 			x1++;
-// 		}
-// 	}
-// 	else
-// 		apply_algo(x1, y1, x2, y2, mlx_connection, mlx_window);
-// }
-
-// The use of the images of the MiniLibX is mandatory.
-
-
-void bresenham_algorithm(int x1, int y1, int x2, int y2, void *mlx_connection, void *mlx_window, unsigned int c) 
+void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    int dx, dy, x, y, xend, yend, p, two_dy, two_dy_dx, two_dx, two_dx_dy;
+	char *dst;
 
-    dx = abs(x2 - x1);
-    dy = abs(y2 - y1);
-    two_dy = 2 * dy;
-    two_dx = 2 * dx;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
-    if (dx > dy) {
-        p = two_dy - dx;
-        two_dy_dx = two_dy - two_dx;
+// bresenham_algorithm(571, 571, 500, 641, &img);
 
-        if (x1 > x2) {
-            x = x2;
-            y = y2;
-            xend = x1;
-        } else {
-            x = x1;
-            y = y1;
-            xend = x2;
+// void bresenham_algorithm(int x1, int y1, int x2, int y2, void *img) 
+// {
+//     int dx, dy, x, y, xend, yend, p, two_dy, two_dy_dx, two_dx, two_dx_dy;
+
+//     dx = abs(x2 - x1);
+//     dy = abs(y2 - y1);
+//     two_dy = 2 * dy;
+//     two_dx = 2 * dx;
+
+//     if (dx > dy) 
+//     {
+//         p = two_dy - dx;
+//         two_dy_dx = two_dy - two_dx;
+
+//         if (x1 > x2) {
+//             x = x2;
+//             y = y2;
+//             xend = x1;
+//         } else {
+//             x = x1;
+//             y = y1;
+//             xend = x2;
+//         }
+        
+// 		my_mlx_pixel_put(img, x, y, 0x00FF0000);
+
+//         while (x < xend) 
+//         {
+//             x++;
+//             if (p < 0) {
+//                 p += two_dy;
+//             } else {
+//                 if (y1 > y2) {
+//                     y--;
+//                 } else {
+//                     y++;
+//                 }
+//                 p += two_dy_dx;
+//             }
+//             my_mlx_pixel_put(img, x, y, 0x00FF0000);
+//         }
+//     } 
+//     else {
+//         p = two_dx - dy;
+//         two_dx_dy = two_dx - two_dy;
+
+//         if (y1 > y2) {
+//             x = x2;
+//             y = y2;
+//             yend = y1;
+//         } else {
+//             x = x1;
+//             y = y1;
+//             yend = y2;
+//         }
+//         my_mlx_pixel_put(img, x, y, 0x00FF0000);
+
+
+//         while (y < yend) {
+//             y++;
+//             if (p < 0) {
+//                 p += two_dx;
+//             } else {
+//                 if (x1 > x2) {
+//                     x--;
+//                 } else {
+//                     x++;
+//                 }
+//                 p += two_dx_dy;
+//             }
+//             my_mlx_pixel_put(img, x, y, 0x00FF0000);
+//         }
+//     }
+// }
+
+void bresenham_algorithm(int x1, int y1, int x2, int y2, void *img) {
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    // int sx = (x1 < x2) ? 1 : -1;
+    // int sy = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+    int sx;
+    int sy;
+    if (x1 < x2)
+        sx = 1;
+    else
+        sx = -1;
+    if (y1 < y2)
+        sy = 1;
+    else
+        sy = -1;
+    while(1) {
+        my_mlx_pixel_put(img, x1, y1, 0x00FF0000);
+
+        if (x1 == x2 && y1 == y2) {
+            break;
         }
 
-        // printf("(%d,%d)\n", x, y);
-		mlx_pixel_put(mlx_connection, mlx_window, x, y, c);
+        int e2 = 2 * err;
 
-        while (x < xend) {
-            x++;
-            if (p < 0) {
-                p += two_dy;
-            } else {
-                if (y1 > y2) {
-                    y--;
-                } else {
-                    y++;
-                }
-                p += two_dy_dx;
-            }
-			mlx_pixel_put(mlx_connection, mlx_window, x, y, c);
-            // printf("(%d,%d)\n", x, y);
+        if (e2 > -dy) 
+        {
+            err -= dy;
+            x1 += sx;
         }
-    } else {
-        p = two_dx - dy;
-        two_dx_dy = two_dx - two_dy;
 
-        if (y1 > y2) {
-            x = x2;
-            y = y2;
-            yend = y1;
-        } else {
-            x = x1;
-            y = y1;
-            yend = y2;
-        }
-		mlx_pixel_put(mlx_connection, mlx_window, x, y, c);
-        // printf("(%d,%d)\n", x, y);
-
-        while (y < yend) {
-            y++;
-            if (p < 0) {
-                p += two_dx;
-            } else {
-                if (x1 > x2) {
-                    x--;
-                } else {
-                    x++;
-                }
-                p += two_dx_dy;
-            }
-			mlx_pixel_put(mlx_connection, mlx_window, x, y, c);
-            // printf("(%d,%d)\n", x, y);
+        if (e2 < dx) {
+            err += dx;
+            y1 += sy;
         }
     }
 }
@@ -165,26 +149,55 @@ void bresenham_algorithm(int x1, int y1, int x2, int y2, void *mlx_connection, v
 
 // int main(void)
 // {
-// 	void *mlx_connection;
+// 	t_data img;
+//     void *mlx_connection;
 //     void *mlx_window;
 
 //     mlx_connection = mlx_init();
 
 //     mlx_window = mlx_new_window(mlx_connection, 1000, 1000, "fdf");
+//     img.img = mlx_new_image(mlx_connection, 1000, 1000);
+//     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
+//     // my_mlx_pixel_put(&img, 500, 500, 0x00FF0000);
+// 	// my_mlx_pixel_put(&img, 501, 501, 0x00FF0000);
+// 	// my_mlx_pixel_put(&img, 502, 502, 0x00FF0000);
+// 	// my_mlx_pixel_put(&img, 503, 503, 0x00FF0000);
+// 	// my_mlx_pixel_put(&img, 504, 504, 0x00FF0000);
+// 	// my_mlx_pixel_put(&img, 505, 505, 0x00FF0000);
+// 	// my_mlx_pixel_put(&img, 506, 506, 0x00FF0000);
+// 	// my_mlx_pixel_put(&img, 507, 507, 0x00FF0000);
+// 	// my_mlx_pixel_put(&img, 508, 508, 0x00FF0000);
+//     // bresenham_algorithm(100, 100, 800, 500, &img);
+//     // bresenham_algorithm(0, 0, 500, 500, &img);
+//     // bresenham_algorithm(500, 500, 1000, 1000, &img);
+//     // bresenham_algorithm(100, 100, 800, 500, &img);
+//     // bresenham_algorithm(100, 100, 800, 500, &img);
+//     // bresenham_algorithm(100, 100, 800, 500, &img);
+    
 
-// 	// bresenham_algorithm(100, 100, 800, 500, mlx_connection, mlx_window);
-// 	// // bresenham_algorithm(800, 500, 100, 100, mlx_connection, mlx_window);
-// 	// bresenham_algorithm(500, 500, 0, 0, mlx_connection, mlx_window);
-// 	// bresenham_algorithm(500, 500, 1000, 0, mlx_connection, mlx_window);
+//     // bresenham_algorithm(0, 0, 500, 641, &img);
+    
+//     bresenham_algorithm(0, 0, 571, 571, &img);
+//     bresenham_algorithm(100, 0, 571, 571, &img);
+//     bresenham_algorithm(0, 100, 571, 571, &img);
+//     bresenham_algorithm(571, 571, 500, 641, &img);
 
-// 	// bresenham_algorithm(500, 500, 0, 0, mlx_connection, mlx_window);
-// 	// bresenham_algorithm(0, 0, 500, 500, mlx_connection, mlx_window);
-// 	// bresenham_algorithm(500, 500, 500, 0, mlx_connection, mlx_window);
-// 	bresenham_algorithm(1000, 0, 500, 500, mlx_connection, mlx_window);
-// 	// bresenham_algorithm(500, 500, 1000, 0, mlx_connection, mlx_window);
-// 	// bresenham_algorithm(500, 500, 1000, 500, mlx_connection, mlx_window);
-// 	// bresenham_algorithm(500, 500, 1000, 1000, mlx_connection, mlx_window);
+// // 	// bresenham_algorithm(100, 100, 800, 500, mlx_connection, mlx_window);
+// // 	// // bresenham_algorithm(800, 500, 100, 100, mlx_connection, mlx_window);
+// // 	// bresenham_algorithm(500, 500, 0, 0, mlx_connection, mlx_window);
+// // 	// bresenham_algorithm(500, 500, 1000, 0, mlx_connection, mlx_window);
 
-// 	mlx_loop(mlx_connection);
+// // 	// bresenham_algorithm(500, 500, 0, 0, mlx_connection, mlx_window);
+// // 	// bresenham_algorithm(0, 0, 500, 500, mlx_connection, mlx_window);
+// // 	// bresenham_algorithm(500, 500, 500, 0, mlx_connection, mlx_window);
+// // 	bresenham_algorithm(1000, 0, 500, 500, mlx_connection, mlx_window);
+// // 	// bresenham_algorithm(500, 500, 1000, 0, mlx_connection, mlx_window);
+// // 	// bresenham_algorithm(500, 500, 1000, 500, mlx_connection, mlx_window);
+// // 	// bresenham_algorithm(500, 500, 1000, 1000, mlx_connection, mlx_window);
+
+//     mlx_put_image_to_window(mlx_connection, mlx_window, img.img, 0, 0);
+
+//     mlx_loop(mlx_connection);
+//     return (0);
 // }

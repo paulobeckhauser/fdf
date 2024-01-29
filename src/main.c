@@ -6,13 +6,15 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:14:39 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/28 18:05:57 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:46:45 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/fdf.h"
 
 #include <stdio.h>
+
+
 
 int main(void)
 {
@@ -26,6 +28,8 @@ int main(void)
     Node *head = NULL;
     Node *prev = NULL;
 
+    // fd = open("maps/plat.fdf", O_RDONLY);
+    // fd = open("maps/42.fdf", O_RDONLY);
     fd = open("maps/new_test.fdf", O_RDONLY);
 
     y_value = 0;
@@ -59,7 +63,7 @@ int main(void)
         y_value++;
     }
 
-    Node *current;
+    // Node *current;
     
     // current = head;
 
@@ -72,6 +76,8 @@ int main(void)
 
     // make a exact copy of coord to iso coord
 
+    Node *current;
+    
     current = head;
 
     while (current != NULL)
@@ -80,22 +86,6 @@ int main(void)
         current = current->next;
     }
 
-    
-    // current = head;
-
-    // while (current != NULL)
-    // {
-    //     printf("x: %f, y: %f, z: %f\n", current->iso_coord.x, current->iso_coord.y, current->iso_coord.z);
-    //     current = current->next;
-    // }
-
-    
-
-    
-    
-
-
-    
     // // Node *current;
 
 	float	min_x;
@@ -108,24 +98,41 @@ int main(void)
 	max_x = max_node_coordinate(head, extract_x);
 	max_y = max_node_coordinate(head, extract_y);
 
-
-
-
-
-    // double oldX, oldY;
-    // current = head;
-	// while (current != NULL)
-	// {
+    double oldX, oldY, oldZ;
+    current = head;
+	while (current != NULL)
+	{
 		
-    //     oldX = current->iso_coord.x;
-    //     oldY = current->iso_coord.y;
+        oldX = current->iso_coord.x;
+        oldY = current->iso_coord.y;
+        oldZ = current->iso_coord.z;
         
-    //     current->iso_coord.x = (COS_45 * oldX) - (SIN_45 * oldY);
-    //     current->iso_coord.y = (SIN_45 * oldX) + (COS_45 * oldY);
+        current->iso_coord.x = (COS_45 * oldX) - (SIN_45 * oldY);
+        current->iso_coord.y = (SIN_45 * oldX) + (COS_45 * oldY);
+
+        /// ATTENTION
+        current->iso_coord.z = oldZ * 2; 
 
         
-    //     current = current->next;
-	// }
+        current = current->next;
+	}
+
+    current = head;
+	while (current != NULL)
+	{
+		
+        oldX = current->iso_coord.x;
+        oldY = current->iso_coord.y;
+        oldZ = current->iso_coord.z;
+        
+        current->iso_coord.x = current->iso_coord.x;
+        current->iso_coord.y = (COS_35 * oldY) - (SIN_35 * oldZ);
+        current->iso_coord.z = (SIN_35 * oldY) + (COS_35 * oldZ);
+        current = current->next;
+	}
+
+
+    
 
     // current = head;
 
@@ -141,49 +148,6 @@ int main(void)
     // }
 
     get_connections(head, max_x, max_y);
-    // double oldY;
-    // current = head;
-    // while (current != NULL)
-    // {
-    //     oldY = current->coord.y;
-    //     current->coord.y = (COS_ARCTAN_ROOT2 * oldY) - (SIN_ARCTAN_ROOT2 * current->coord.z);
-    //     oldY = current->left.y;
-    //     current->left.y = (COS_ARCTAN_ROOT2 * oldY) - (SIN_ARCTAN_ROOT2 * current->left.z);
-    //     oldY = current->right.y;
-    //     current->right.y = (COS_ARCTAN_ROOT2 * oldY) - (SIN_ARCTAN_ROOT2 * current->right.z);
-    //     oldY = current->up.y;
-    //     current->up.y = (COS_ARCTAN_ROOT2 * oldY) - (SIN_ARCTAN_ROOT2 * current->up.z);
-    //     oldY = current->down.y;
-    //     current->down.y = (COS_ARCTAN_ROOT2 * oldY) - (SIN_ARCTAN_ROOT2 * current->down.z);
-
-    //     current->coord.z = (SIN_ARCTAN_ROOT2 * oldY) + (COS_ARCTAN_ROOT2 * current->coord.z);
-    //     current->left.z = (SIN_ARCTAN_ROOT2 * oldY) + (COS_ARCTAN_ROOT2 * current->left.z);
-    //     current->right.z = (SIN_ARCTAN_ROOT2 * oldY) + (COS_ARCTAN_ROOT2 * current->right.z);
-    //     current->up.z = (SIN_ARCTAN_ROOT2 * oldY) + (COS_ARCTAN_ROOT2 * current->up.z);
-    //     current->down.z = (SIN_ARCTAN_ROOT2 * oldY) + (COS_ARCTAN_ROOT2 * current->down.z);
-
-    //     current = current->next;
-    // }
-
-
-    // ROTATE X ROOT ARCTAN
-    // current = head;
-	// while (current != NULL)
-	// {
-    //     current->coord.y = (COS_ARCTAN_ROOT2 * current->coord.y) - (SIN_ARCTAN_ROOT2 * current->coord.z);
-    //     current->left.y = (COS_ARCTAN_ROOT2 * current->left.y) - (SIN_ARCTAN_ROOT2 * current->left.z);
-    //     current->right.y = (COS_ARCTAN_ROOT2 * current->right.y) - (SIN_ARCTAN_ROOT2 * current->right.z);
-    //     current->up.y = (COS_ARCTAN_ROOT2 * current->up.y) - (SIN_ARCTAN_ROOT2 * current->up.z);
-    //     current->down.y = (COS_ARCTAN_ROOT2 * current->down.y) - (SIN_ARCTAN_ROOT2 * current->down.z);
-        
-    
-    //     current = current->next;
-	// }
-
-
-
-    
-
 
 
     // current = head;
@@ -205,68 +169,47 @@ int main(void)
     // print_coords(head);
 
 
-    float factor_mult = 100.0;
+    float factor_mult = 200.0;
     float factor_sum = 500.0;
 
-    
+
+
+    t_data img;
     void *mlx_connection;
     void *mlx_window;
 
     mlx_connection = mlx_init();
 
-    mlx_window = mlx_new_window(mlx_connection, 1200, 1200, "fdf");
+    mlx_window = mlx_new_window(mlx_connection, WINDOW_WITDH, WINDOW_HEIGHT, "fdf");
+
     
-    
+    img.img = mlx_new_image(mlx_connection, WINDOW_HEIGHT, WINDOW_HEIGHT);
+
+    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
     current = head;
-
-    int i = 0;
-    
     while(current != NULL)
     {
-        printf("----------------\n");
-        printf("Dot number: %d\n", i);
-        printf("\n\nDOT: (%f, %f, %f)\n", current->coord.x, current->coord.y, current->coord.z);
-        printf("ISO_DOT: (%f, %f, %f)\n\n", current->iso_coord.x, current->iso_coord.y, current->iso_coord.z);  
-        // if (!isnan(current->left.x))
-        // {
-        //     bresenham_algorithm((int)(current->iso_coord.x * factor_mult + factor_sum), (int)(current->iso_coord.y * factor_mult + factor_sum), (int)(current->left.x * factor_mult + factor_sum), (int)(current->left.y * factor_mult + factor_sum),
-        //     mlx_connection, mlx_window);
-        //     printf("Left: (%f, %f, %f)\n", current->left.x, current->left.y, current->left.z);
-        // }
+        if (!isnan(current->down.x))
+        {
+            bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), 
+                                (current->iso_coord.y * factor_mult + factor_sum), 
+                                (current->down.x * factor_mult + factor_sum), 
+                                (current->down.y * factor_mult + factor_sum), 
+                                &img);
+        }
         if (!isnan(current->right.x))
         {
             bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), (current->iso_coord.y * factor_mult + factor_sum), 
                 (current->right.x * factor_mult + factor_sum), (current->right.y * factor_mult + factor_sum),
-                mlx_connection, mlx_window, 0x00000f << (i * 4));
-            printf("%X\n", 0x00000f << (i * 4));
-            printf("Right: (%f, %f, %f)\n", current->right.x, current->right.y, current->right.z);
-            printf("The current point is: %f, %f\n", (current->coord.x ), (current->coord.y));
+                &img);
         }
-        // if (!isnan(current->up.x))
-        // {
-        //     bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), (current->iso_coord.y * factor_mult + factor_sum), (current->up.x * factor_mult + factor_sum), (current->up.y * factor_mult + factor_sum),
-        //     mlx_connection, mlx_window);
-        //     printf("Up: (%f, %f, %f)\n", current->up.x, current->up.y, current->up.z);
-        // }
-        if (!isnan(current->down.x))
-        {
-            bresenham_algorithm((current->iso_coord.x * factor_mult + factor_sum), (current->iso_coord.y * factor_mult + factor_sum), (current->down.x * factor_mult + factor_sum), 
-                    (current->down.y * factor_mult + factor_sum),
-            mlx_connection, mlx_window,  0x00000f << (i * 4));
-            printf("%X\n", 0x00000f << (i * 4));
-            printf("Down: (%f, %f, %f)\n", current->down.x, current->down.y, current->down.z);
-            printf("The current point is: %f, %f\n", (current->coord.x ), (current->coord.y));
-        }
-        i++;
+
         current = current->next;
     }
+    
 
-
+    mlx_put_image_to_window(mlx_connection, mlx_window, img.img, 0, 0);
     mlx_loop(mlx_connection);
-
-    // printf("%f\n", COS_45);
-    // printf("%f\n", SIN_45);
-
     return (0);
 }

@@ -50,9 +50,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 # 			${CC} ${CFLAGS} -I./libs/libft -I./libs/mlx_linux -c $? -o $@
 
 ${NAME}: ${OBJ}
-		@${CC} ${CFLAGS} $^ -L./libs/libft -lft -L./libs/mlx_macos -lmlx -framework OpenGL -framework AppKit -o ${NAME}
-		# @make -C ./libs/libft
+		@make -C ./libs/libft
 		@make -C ./libs/mlx_macos
+		@${CC} ${CFLAGS} $^ -L./libs/libft -lft -L./libs/mlx_macos -lmlx -framework OpenGL -framework AppKit -o ${NAME}
 #		@make -C ./libs/mlx_linux
 #linux
 #		@${CC} ${CFLAGS} $^ -L./libs/libft -lft -L./libs/mlx_linux -lmlx -lXext -lX11 -lm -lz -o ${NAME}

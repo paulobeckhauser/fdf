@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/28 18:13:01 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/29 22:30:07 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@
 # include <math.h>
 
 // # define M_PI 3.14159265358979323846
+# define WINDOW_WITDH 1800
+# define WINDOW_HEIGHT 1200
 
 # define COS_45 cos(45 * (M_PI / 180.0))
 # define SIN_45 sin(45 * (M_PI / 180.0))
 
-
-
+# define COS_35 cos(54.74 * (M_PI / 180.0))
+# define SIN_35 sin(54.74 * (M_PI / 180.0))
 
 
 // # define COS_ARCTAN_ROOT2 cos(atan(sqrt(2)))
@@ -81,15 +83,26 @@ typedef struct Node{
 // t_node **fdf;
 
 
-typedef struct bresenham_data{
+typedef struct s_data
+{
+    void *img;
+    char *addr;
+    int bits_per_pixel;
+    int line_length;
+    int endian;
+}   t_data;
+
+
+
+// typedef struct bresenham_data{
     
-    t_coordinates values;
-    struct bresenham_data *next;
-    int p_value;
-    int dx;
-    int dy;
+//     t_coordinates values;
+//     struct bresenham_data *next;
+//     int p_value;
+//     int dx;
+//     int dy;
     
-} bresenham_data;
+// } bresenham_data;
 
 
 
@@ -97,7 +110,7 @@ typedef struct bresenham_data{
 void	iso_coordinates(Node *head);
 
 //Algorithm
-void bresenham_algorithm(int x1, int y1, int x2, int y2, void *mlx_connection, void *mlx_window, unsigned int c);
+void bresenham_algorithm(int x1, int y1, int x2, int y2, void *image) ;
 
 //Max min
 // int max_node_x(Node *head);
@@ -112,6 +125,9 @@ float min_node_coordinate(Node* head, CoordinateExtractor extractor);
 //connections
 void set_coordinates_to_nan(t_coordinates *coord);
 void	get_connections(Node *head, float max_x, float max_y);
+
+//draw
+void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 
 
