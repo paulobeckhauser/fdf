@@ -29,7 +29,9 @@ SRCS				= 	$(SRC_DIR)main.c \
 						$(SRC_DIR)max_min.c \
 						$(SRC_DIR)get_connections.c \
 						$(SRC_DIR)bresenham_algorithm.c \
-#						$(SRC_DIR)iso_coordinates.c
+						$(SRC_DIR)rotations.c \
+						$(SRC_DIR)read_map.c \
+						$(SRC_DIR)draw.c \
 
 
 # Creation of Object files for each source file

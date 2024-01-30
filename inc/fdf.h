@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/29 22:30:07 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:29:20 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # include <math.h>
 
 // # define M_PI 3.14159265358979323846
-# define WINDOW_WITDH 1800
-# define WINDOW_HEIGHT 1200
+# define WINDOW_WITDH 1920
+# define WINDOW_HEIGHT 1080
 
 # define COS_45 cos(45 * (M_PI / 180.0))
 # define SIN_45 sin(45 * (M_PI / 180.0))
@@ -124,11 +124,22 @@ float min_node_coordinate(Node* head, CoordinateExtractor extractor);
 
 //connections
 void set_coordinates_to_nan(t_coordinates *coord);
-void	get_connections(Node *head, float max_x, float max_y);
+void	get_connections(Node *head);
 
 //draw
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
+// Rotation
+void iso_copy(Node *head);
+void rotate_z_45(Node *head);
+void rotate_x_arctan_root2(Node *head);
+
+
+// read map
+Node	*read_map(Node *head);
+
+//draw
+void draw(Node *head);
 
 
 # endif
