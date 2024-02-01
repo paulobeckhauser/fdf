@@ -6,11 +6,12 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:03:56 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/02/01 22:38:36 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/02/02 00:03:41 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -19,112 +20,45 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-
-
-
-
-void bresenham_algorithm(t_coordinates iso_coord, int x2, int y2, void *img)
+void	initialize_bresenham(t_coordinates iso_coord, int x2, int y2,
+		t_bresenham *bres)
 {
-	int	dx;
-	int	dy;
-	int	err;
-	int	sx;
-	int	sy;
-	int	e2;
-
-	int x1;
-	int y1;
-
-	x1 = iso_coord.x;
-	y1 = iso_coord.y;
-	if (x1 < 0 || x2 < 0 || y1 < 0 || y2 < 0)
-	{
-		ft_printf("error!!!\n");
-		ft_printf("1:(%d, %d), 2(%d, %d)\n", x1, y1, x2, y2);
-	}
-	if (x1 >= WINDOW_WITDH || x2 >= WINDOW_WITDH || y1 >= WINDOW_HEIGHT || y2 >= WINDOW_HEIGHT)
-	{
-		ft_printf("error!!!\n");
-		ft_printf("1:(%d, %d), 2(%d, %d)\n", x1, y1, x2, y2);
-	}
-	dx = abs(x2 - x1);
-	dy = abs(y2 - y1);
-	err = dx - dy;
-	if (x1 < x2)
-		sx = 1;
+	bres->x1 = iso_coord.x;
+	bres->y1 = iso_coord.y;
+	bres->dx = abs(x2 - bres->x1);
+	bres->dy = abs(y2 - bres->y1);
+	bres->err = bres->dx - bres->dy;
+	if (bres->x1 < x2)
+		bres->sx = 1;
 	else
-		sx = -1;
-	if (y1 < y2)
-		sy = 1;
+		bres->sx = -1;
+	if (bres->y1 < y2)
+		bres->sy = 1;
 	else
-		sy = -1;
+		bres->sy = -1;
+}
+
+void	bresenham_algorithm(t_coordinates iso_coord, int x2, int y2, void *img)
+{
+	t_bresenham	bres;
+	int			e2;
+
+	initialize_bresenham(iso_coord, x2, y2, &bres);
 	while (1)
 	{
-		my_mlx_pixel_put(img, x1, y1, 0x00FF0000);
-		if (x1 == x2 && y1 == y2)
+		my_mlx_pixel_put(img, bres.x1, bres.y1, 0x00FF0000);
+		if (bres.x1 == x2 && bres.y1 == y2)
 			break ;
-		e2 = 2 * err;
-		if (e2 > -dy)
+		e2 = 2 * bres.err;
+		if (e2 > -bres.dy)
 		{
-			err -= dy;
-			x1 += sx;
+			bres.err -= bres.dy;
+			bres.x1 += bres.sx;
 		}
-		if (e2 < dx)
+		if (e2 < bres.dx)
 		{
-			err += dx;
-			y1 += sy;
+			bres.err += bres.dx;
+			bres.y1 += bres.sy;
 		}
 	}
 }
-
-
-// void	bresenham_algorithm(int x1, int y1, int x2, int y2, void *img)
-// {
-// 	int	dx;
-// 	int	dy;
-// 	int	err;
-// 	int	sx;
-// 	int	sy;
-// 	int	e2;
-
-// 	if (x1 < 0 || x2 < 0 || y1 < 0 || y2 < 0)
-// 	{
-// 		printf("error!!!\n");
-// 		printf("1:(%d, %d), 2(%d, %d)\n", x1, y1, x2, y2);
-		
-// 	}
-// 	if (x1 >= WINDOW_WITDH || x2 >= WINDOW_WITDH || y1 >= WINDOW_HEIGHT || y2 >= WINDOW_HEIGHT)
-// 	{
-// 		printf("error!!!\n");
-// 		printf("1:(%d, %d), 2(%d, %d)\n", x1, y1, x2, y2);
-// 	}
-
-// 	dx = abs(x2 - x1);
-// 	dy = abs(y2 - y1);
-// 	err = dx - dy;
-// 	if (x1 < x2)
-// 		sx = 1;
-// 	else
-// 		sx = -1;
-// 	if (y1 < y2)
-// 		sy = 1;
-// 	else
-// 		sy = -1;
-// 	while (1)
-// 	{
-// 		my_mlx_pixel_put(img, x1, y1, 0x00FF0000);
-// 		if (x1 == x2 && y1 == y2)
-// 			break ;
-// 		e2 = 2 * err;
-// 		if (e2 > -dy)
-// 		{
-// 			err -= dy;
-// 			x1 += sx;
-// 		}
-// 		if (e2 < dx)
-// 		{
-// 			err += dx;
-// 			y1 += sy;
-// 		}
-// 	}
-// }

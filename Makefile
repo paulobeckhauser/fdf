@@ -32,6 +32,9 @@ SRCS				= 	$(SRC_DIR)main.c \
 						$(SRC_DIR)rotations.c \
 						$(SRC_DIR)read_map.c \
 						$(SRC_DIR)draw.c \
+						$(SRC_DIR)scale_draw.c \
+						$(SRC_DIR)correct_negative.c \
+						$(SRC_DIR)center_draw.c \
 
 
 # Creation of Object files for each source file

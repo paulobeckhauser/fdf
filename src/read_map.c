@@ -6,23 +6,22 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:38:23 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/02/01 13:41:53 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/02/01 23:40:21 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-Node	*read_map(Node *head, char *map_name)
+t_node	*read_map(t_node *head, char *map_name)
 {
 	int		fd;
 	char	*line;
 	char	**array;
 	int		x_value;
 	int		y_value;
-	Node	*prev;
-	Node 	*newNode;
+	t_node	*prev;
+	t_node	*new_node;
 
-	prev = NULL;
 	fd = open(map_name, O_RDONLY);
 	y_value = 0;
 	while (1)
@@ -34,17 +33,17 @@ Node	*read_map(Node *head, char *map_name)
 		x_value = 0;
 		while (array[x_value])
 		{
-			newNode = (Node *)malloc(sizeof(Node));
-			newNode->coord.x = x_value;
-			newNode->coord.y = y_value;
-			newNode->coord.z = ft_atoi(array[x_value]);
-			newNode->next = NULL;
-			newNode->prev = prev;
+			new_node = (t_node *)malloc(sizeof(t_node));
+			new_node->coord.x = x_value;
+			new_node->coord.y = y_value;
+			new_node->coord.z = ft_atoi(array[x_value]);
+			new_node->next = NULL;
+			new_node->prev = prev;
 			if (prev == NULL)
-				head = newNode;
+				head = new_node;
 			else
-				prev->next = newNode;
-			prev = newNode;
+				prev->next = new_node;
+			prev = new_node;
 			x_value++;
 		}
 		free(array);

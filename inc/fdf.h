@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/02/01 22:51:27 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/02/02 00:45:24 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,33 @@ typedef struct s_vars
 	void			*win;
 }					t_vars;
 
+typedef struct s_bresenham
+{
+	int				dx;
+	int				dy;
+	int				err;
+	int				sx;
+	int				sy;
+	int				x1;
+	int				y1;
+
+}					t_bresenham;
+
+typedef struct s_min_max
+{
+	float			max_x;
+	float			max_y;
+	float			min_x;
+	float			min_y;
+}					t_min_max;
+
 void				iso_coordinates(t_node *head);
 
 // Algorithm
 // void				bresenham_algorithm(int x1, int y1, int x2, int y2,
 // 						void *image);
-void bresenham_algorithm(t_coordinates iso_coord, int x2, int y2, void *img);
+void				bresenham_algorithm(t_coordinates iso_coord, int x2, int y2,
+						void *img);
 // void bresenham_algorithm(t_node *head, bool use_down, void *img);
 
 typedef float		(*t_coordinate_extractor)(t_coordinates);
@@ -103,5 +124,19 @@ t_node				*read_map(t_node *head, char *map_name);
 
 // draw
 void				draw(t_node *head);
+
+// scale
+float				max_scale_factor(t_node *head, float windowWidth,
+						float windowHeight);
+void				scale(t_node *head, float scale_factor);
+
+// negative
+void				correct_negative(t_node *head);
+
+// center
+void				centering(t_node *head);
+
+// max_min
+t_min_max			calculate_min_max(t_node *head);
 
 #endif
