@@ -6,13 +6,13 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:38:23 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/30 14:17:31 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/02/01 13:41:53 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-Node	*read_map(Node *head)
+Node	*read_map(Node *head, char *map_name)
 {
 	int		fd;
 	char	*line;
@@ -23,7 +23,7 @@ Node	*read_map(Node *head)
 	Node 	*newNode;
 
 	prev = NULL;
-	fd = open("maps/42.fdf", O_RDONLY);
+	fd = open(map_name, O_RDONLY);
 	y_value = 0;
 	while (1)
 	{

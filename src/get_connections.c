@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 14:54:20 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/01/30 14:13:35 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/02/01 22:51:22 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	set_coordinates_to_nan(t_coordinates *iso_coord)
 	iso_coord->z = NAN;
 }
 
-void	get_connections(Node *head)
+void	get_connections(t_node *head)
 {
-	Node	*current;
-	Node	*down_node;
-	Node	*up_node;
+	t_node	*current;
+	t_node	*down_node;
+	t_node	*up_node;
 	float	max_x;
 	float	max_y;
 
