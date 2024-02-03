@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/02/03 14:09:18 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/02/03 14:12:48 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../libs/libft/inc/ft_printf.h"
 # include "../libs/libft/inc/get_next_line.h"
 # include "../libs/libft/inc/libft.h"
-# include "../libs/mlx_linux/mlx.h"
+// # include "../libs/mlx_linux/mlx.h"
 
 # define MIN_FLOAT 1.17549435e-38F
 # define MAX_FLOAT 3.40282347e+38F
