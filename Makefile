@@ -17,7 +17,7 @@ OBJ_DIR			= obj/
 #Compiler and Flags
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 
 # Libraries
 LIBFT = ./libs/libft/libft.a
@@ -35,6 +35,7 @@ SRCS				= 	$(SRC_DIR)main.c \
 						$(SRC_DIR)scale_draw.c \
 						$(SRC_DIR)correct_negative.c \
 						$(SRC_DIR)center_draw.c \
+						$(SRC_DIR)check_format.c \
 
 
 # Creation of Object files for each source file

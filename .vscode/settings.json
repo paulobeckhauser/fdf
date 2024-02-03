@@ -6,6 +6,8 @@
         "ft_printf.h": "c",
         "mlx.h": "c",
         "ranges": "c",
-        "iterator": "c"
+        "iterator": "c",
+        "__tuple": "c",
+        "array": "c"
     }
 }

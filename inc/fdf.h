@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/02/02 00:45:24 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:10:43 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,8 @@ void				centering(t_node *head);
 
 // max_min
 t_min_max			calculate_min_max(t_node *head);
+
+//check
+int check_format(char *str);
 
 #endif

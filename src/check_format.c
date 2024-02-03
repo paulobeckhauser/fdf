@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_format.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 12:14:39 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/02/03 13:49:37 by pabeckha         ###   ########.fr       */
+/*   Created: 2024/02/03 12:22:40 by pabeckha          #+#    #+#             */
+/*   Updated: 2024/02/03 14:02:20 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int	main(int argc, char **argv)
+int	check_format(char *str)
 {
-	t_node	*head;
-	int		prog_return;
+	int		i;
+	int		j;
+	int		len;
+	char	*format;
 
-	prog_return = 0;
-	if (argc == 2)
+	i = 0;
+	len = ft_strlen(str);
+	format = (char *)malloc((len + 1) * sizeof(char));
+	j = 4;
+	format[j] = '\0';
+	while (str[len - 1] && i < 4)
 	{
-		prog_return = check_format(argv[1]);
-		if (prog_return == 1)
-			return (prog_return);
-		head = NULL;
-		head = read_map(head, argv[1]);
-		iso_copy(head);
-		rotate_z_45(head);
-		rotate_x_arctan_root2(head);
-		get_connections(head);
-		draw(head);
+		j--;
+		format[j] = str[len - 1];
+		i++;
+		len--;
 	}
+	if (ft_strncmp(format, ".fdf", 4) == 0)
+		return (0);
 	else
 	{
-		ft_printf("Too much or too low arguments\n");
-		prog_return = 1;
+		ft_printf("Error in the format of the file\n");
+		return (1);
 	}
-	return (prog_return);
 }
