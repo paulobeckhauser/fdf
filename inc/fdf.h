@@ -6,7 +6,7 @@
 /*   By: pabeckha <pabeckha@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 18:10:31 by pabeckha          #+#    #+#             */
-/*   Updated: 2024/02/03 14:50:10 by pabeckha         ###   ########.fr       */
+/*   Updated: 2024/02/03 17:51:49 by pabeckha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,7 @@ void				get_connections(t_node *head);
 void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // Rotation
-void				iso_copy(t_node *head);
-void				rotate_z_45(t_node *head);
-void				rotate_x_arctan_root2(t_node *head);
+void	isometric_projection(t_node *head);
 
 // read map
 t_node				*read_map(t_node *head, char *map_name);
